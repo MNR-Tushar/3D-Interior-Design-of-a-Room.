@@ -161,19 +161,19 @@ void drawSingleWindowWithCurtain() {
     glPopMatrix();
 
     // End caps
-setColor(0.95f, 0.78f, 0.18f);
+    setColor(0.95f, 0.78f, 0.18f);
 
-// Bottom cap
-glPushMatrix();
-glTranslatef(ox - 0.4f, 2.30f-drop, -5.90f);
-glutSolidSphere(0.05f, 8,8);
-glPopMatrix();
+    // Bottom cap
+    glPushMatrix();
+    glTranslatef(ox - 0.4f, 2.30f-drop, -5.90f);
+    glutSolidSphere(0.05f, 8,8);
+    glPopMatrix();
 
-// Top cap
-glPushMatrix();
-glTranslatef(ox - 0.4f, 4.40f-drop, -5.90f);
-glutSolidSphere(0.05f, 8,8);
-glPopMatrix();
+    // Top cap
+    glPushMatrix();
+    glTranslatef(ox - 0.4f, 4.40f-drop, -5.90f);
+    glutSolidSphere(0.05f, 8,8);
+    glPopMatrix();
 
     // Curtain settings
     int folds = 8;
@@ -787,16 +787,16 @@ void drawSofa() {
     setColor(0.60f, 0.28f, 0.35f);
     glPushMatrix(); glTranslatef(0.72f, 0.70f, -0.18f); glRotatef(-11, 0, 0, 1); glScalef(0.26f, 0.26f, 0.11f); glutSolidCube(1.0); glPopMatrix();
 
-
-
     glPopMatrix(); // end sofa
 }
 
 // ===== T-TABLE (Coffee table) in front of sofa =====
 void drawTTable() {
     glPushMatrix();
-    // In front of sofa (sofa is at x=5.2 facing -X, so in front = lower x)
     glTranslatef(3.80f, 0.0f, 0.0f);
+
+    //Rotate table (Y axis)
+    glRotatef(90.0f, 0.0f, 1.0f, 0.0f);
 
     // Table top (glass-look — light blue gray)
     setColor(0.82f, 0.88f, 0.92f);
@@ -808,14 +808,12 @@ void drawTTable() {
 
     // Metal cross-frame legs
     setColor(0.65f, 0.65f, 0.68f);
-    // Leg X frame
     glPushMatrix(); glTranslatef(0, 0.36f, 0); glRotatef(35, 0, 0, 1); glScalef(0.06f, 0.80f, 0.06f); glutSolidCube(1.0); glPopMatrix();
     glPushMatrix(); glTranslatef(0, 0.36f, 0); glRotatef(-35, 0, 0, 1); glScalef(0.06f, 0.80f, 0.06f); glutSolidCube(1.0); glPopMatrix();
 
     // Foot bar (Z direction)
     glPushMatrix(); glTranslatef(0, 0.06f, 0); glScalef(0.06f, 0.06f, 0.55f); glutSolidCube(1.0); glPopMatrix();
 
-    // Items on coffee table: remote control + small tray + cup
     // Remote
     setColor(0.15f, 0.15f, 0.18f);
     glPushMatrix(); glTranslatef(0.30f, 0.76f, 0.10f); glScalef(0.06f, 0.015f, 0.20f); glutSolidCube(1.0); glPopMatrix();
@@ -829,7 +827,7 @@ void drawTTable() {
     // Cup on tray
     setColor(0.88f, 0.88f, 0.85f);
     glPushMatrix(); glTranslatef(-0.20f, 0.78f, -0.05f); drawCylinder(0.055f, 0.10f, 10); glPopMatrix();
-    setColor(0.55f, 0.30f, 0.10f); // tea color
+    setColor(0.55f, 0.30f, 0.10f);
     glPushMatrix(); glTranslatef(-0.20f, 0.87f, -0.05f); glutSolidSphere(0.048f, 8,8); glPopMatrix();
 
     glPopMatrix();
@@ -838,37 +836,28 @@ void drawTTable() {
 // ===== BIG FLOOR PLANT in corner =====
 void drawCornerFlowerPot() {
     glPushMatrix();
-    // Right wall front corner (near sofa area)
     glTranslatef(5.5f, 0.0f, 2.0f);
 
     // Pot base (terracotta)
     setColor(0.78f, 0.38f, 0.18f);
     glPushMatrix(); glScalef(0.5f, 0.06f, 0.5f); glutSolidCube(1.0); glPopMatrix();
 
-    // Pot body (tapered cylinder approximation)
     setColor(0.80f, 0.40f, 0.20f);
     glPushMatrix(); glTranslatef(0, 0.03f, 0); drawCylinder(0.22f, 0.45f, 16); glPopMatrix();
 
-    // Pot lip
     setColor(0.70f, 0.33f, 0.15f);
     glPushMatrix(); glTranslatef(0, 0.46f, 0); drawCylinder(0.24f, 0.06f, 16); glPopMatrix();
 
-    // Soil
     setColor(0.22f, 0.15f, 0.08f);
     glPushMatrix(); glTranslatef(0, 0.50f, 0); glutSolidSphere(0.21f, 10, 5); glPopMatrix();
 
-    // Main trunk
     setColor(0.35f, 0.22f, 0.10f);
     glPushMatrix(); glTranslatef(0, 0.52f, 0); drawCylinder(0.04f, 1.10f, 8); glPopMatrix();
 
-    // Branch 1
     glPushMatrix(); glTranslatef(0, 1.30f, 0); glRotatef(-35, 0, 0, 1); drawCylinder(0.025f, 0.55f, 6); glPopMatrix();
-    // Branch 2
     glPushMatrix(); glTranslatef(0, 1.20f, 0); glRotatef(40, 0, 0, 1); glRotatef(60, 0, 1, 0); drawCylinder(0.022f, 0.50f, 6); glPopMatrix();
-    // Branch 3
     glPushMatrix(); glTranslatef(0, 1.10f, 0); glRotatef(30, 1, 0, 0); drawCylinder(0.020f, 0.45f, 6); glPopMatrix();
 
-    // Leaf clusters
     float leafColors[5][3] = {
         {0.15f,0.65f,0.20f},{0.10f,0.58f,0.15f},{0.20f,0.72f,0.15f},
         {0.12f,0.55f,0.22f},{0.18f,0.68f,0.12f}
@@ -896,69 +885,51 @@ void drawCornerFlowerPot() {
 // ===== DRESSING TABLE =====
 void drawDressingTable() {
     glPushMatrix();
-    // Place on left wall, near the front-left area
     glTranslatef(5.5f, 0.0f, 4.0f);
-    glRotatef(260.0f, 0, 1, 0); // Face inward
+    glRotatef(260.0f, 0, 1, 0);
 
-    // === Table Body ===
     setColor(0.58f, 0.38f, 0.16f);
-    // Main body cabinet
     glPushMatrix(); glTranslatef(0, 0.70f, 0); glScalef(1.80f, 1.40f, 0.52f); glutSolidCube(1.0); glPopMatrix();
 
-    // === Table Top Surface ===
     setColor(0.68f, 0.45f, 0.18f);
     glPushMatrix(); glTranslatef(0, 1.42f, 0); glScalef(1.85f, 0.06f, 0.55f); glutSolidCube(1.0); glPopMatrix();
 
-    // === Drawers (3) ===
     setColor(0.50f, 0.32f, 0.12f);
     float dY[] = {0.35f, 0.72f, 1.08f};
     for(int d = 0; d < 3; d++){
-        // Drawer face
         glPushMatrix(); glTranslatef(0.32f, dY[d], 0.27f); glScalef(0.82f, 0.28f, 0.02f); glutSolidCube(1.0); glPopMatrix();
-        // Drawer handle (small gold knob)
         setColor(0.85f, 0.70f, 0.15f);
         glPushMatrix(); glTranslatef(0.32f, dY[d], 0.29f); glutSolidSphere(0.028f, 6, 6); glPopMatrix();
         setColor(0.50f, 0.32f, 0.12f);
     }
 
-    // Left small cabinet door
     setColor(0.48f, 0.30f, 0.12f);
     glPushMatrix(); glTranslatef(-0.62f, 0.60f, 0.27f); glScalef(0.52f, 1.15f, 0.02f); glutSolidCube(1.0); glPopMatrix();
     setColor(0.85f, 0.70f, 0.15f);
     glPushMatrix(); glTranslatef(-0.62f, 0.60f, 0.29f); glutSolidSphere(0.030f, 6, 6); glPopMatrix();
 
-    // === Mirror (large, with frame) ===
-    // Mirror frame
     setColor(0.50f, 0.32f, 0.12f);
     glPushMatrix(); glTranslatef(0, 2.35f, 0.20f); glScalef(1.40f, 1.55f, 0.06f); glutSolidCube(1.0); glPopMatrix();
-    // Mirror glass (light blue-silver)
     setColor(0.78f, 0.88f, 0.95f);
     glPushMatrix(); glTranslatef(0, 2.35f, 0.24f); glScalef(1.28f, 1.42f, 0.015f); glutSolidCube(1.0); glPopMatrix();
-    // Mirror shine highlight
     setColor(0.92f, 0.96f, 1.0f);
     glPushMatrix(); glTranslatef(-0.25f, 2.55f, 0.248f); glScalef(0.18f, 0.55f, 0.005f); glutSolidCube(1.0); glPopMatrix();
 
-    // === Items on dressing table top ===
-    // Perfume bottle 1
     setColor(0.55f, 0.20f, 0.45f);
     glPushMatrix(); glTranslatef(-0.50f, 1.50f, 0.05f); drawCylinder(0.05f, 0.22f, 10); glPopMatrix();
     setColor(0.70f, 0.30f, 0.60f);
     glPushMatrix(); glTranslatef(-0.50f, 1.72f, 0.05f); glutSolidSphere(0.055f, 8, 8); glPopMatrix();
 
-    // Perfume bottle 2
     setColor(0.30f, 0.55f, 0.72f);
     glPushMatrix(); glTranslatef(-0.30f, 1.50f, 0.05f); drawCylinder(0.040f, 0.18f, 10); glPopMatrix();
     setColor(0.40f, 0.65f, 0.82f);
     glPushMatrix(); glTranslatef(-0.30f, 1.68f, 0.05f); glutSolidSphere(0.044f, 8, 8); glPopMatrix();
 
-    // Small tray
     setColor(0.80f, 0.68f, 0.20f);
     glPushMatrix(); glTranslatef(-0.40f, 1.47f, 0.05f); glScalef(0.40f, 0.025f, 0.22f); glutSolidCube(1.0); glPopMatrix();
 
-    // Makeup brush holder
     setColor(0.78f, 0.72f, 0.65f);
     glPushMatrix(); glTranslatef(0.45f, 1.49f, -0.05f); drawCylinder(0.06f, 0.16f, 10); glPopMatrix();
-    // Brushes
     float brC[3][3]={{0.85f,0.70f,0.55f},{0.60f,0.42f,0.30f},{0.90f,0.78f,0.60f}};
     for(int b=0;b<3;b++){
         setColor(brC[b][0],brC[b][1],brC[b][2]);
@@ -969,20 +940,15 @@ void drawDressingTable() {
         glPopMatrix();
     }
 
-    // Small jewelry box
     setColor(0.65f, 0.20f, 0.30f);
     glPushMatrix(); glTranslatef(0.22f, 1.50f, 0.10f); glScalef(0.20f, 0.12f, 0.14f); glutSolidCube(1.0); glPopMatrix();
-    // Lid
     setColor(0.75f, 0.28f, 0.38f);
     glPushMatrix(); glTranslatef(0.22f, 1.568f, 0.10f); glScalef(0.21f, 0.04f, 0.15f); glutSolidCube(1.0); glPopMatrix();
 
-    // === Stool in front of dressing table ===
     setColor(0.55f, 0.35f, 0.14f);
     glPushMatrix(); glTranslatef(0, 0.72f, 0.78f); glScalef(0.60f, 0.07f, 0.45f); glutSolidCube(1.0); glPopMatrix();
-    // Stool cushion
     setColor(0.72f, 0.35f, 0.45f);
     glPushMatrix(); glTranslatef(0, 0.78f, 0.78f); glScalef(0.56f, 0.07f, 0.42f); glutSolidCube(1.0); glPopMatrix();
-    // Stool legs
     setColor(0.42f, 0.26f, 0.10f);
     float slx[] = {-0.24f, 0.24f, -0.24f, 0.24f};
     float slz[] = { 0.60f,  0.60f,  0.96f,  0.96f};
@@ -993,12 +959,17 @@ void drawDressingTable() {
     glPopMatrix();
 }
 
-// ===== Digital Wall Clock =====
+// ===== Digital Wall Clock (FIXED POSITION) =====
 void drawDigitalClock() {
     glPushMatrix();
-    glTranslatef(4.8f, 3.5f, 0.0f);
-    glRotatef(-90.0f, 0.0f, 1.0f, 0.0f);
 
+    // 👉 Clock wall position (change only here)
+    glTranslatef(4.3f, 4.0f, -5.9f);
+
+    // 👉 Face direction fix (wall facing adjustment)
+    glRotatef(0.0f, 0.0f, 1.0f, 0.0f);
+
+    // ===== Outer Frame =====
     setColor(0.15f, 0.15f, 0.15f);
     glBegin(GL_QUADS);
         glVertex3f(-0.40f, -0.15f, 0.0f);
@@ -1007,28 +978,38 @@ void drawDigitalClock() {
         glVertex3f(-0.40f,  0.15f, 0.0f);
     glEnd();
 
-    glTranslatef(0.0f, 0.0f, 0.01f);
+    // ===== Screen =====
     setColor(0.02f, 0.05f, 0.02f);
     glBegin(GL_QUADS);
-        glVertex3f(-0.35f, -0.10f, 0.0f);
-        glVertex3f( 0.35f, -0.10f, 0.0f);
-        glVertex3f( 0.35f,  0.10f, 0.0f);
-        glVertex3f(-0.35f,  0.10f, 0.0f);
+        glVertex3f(-0.35f, -0.10f, 0.001f);
+        glVertex3f( 0.35f, -0.10f, 0.001f);
+        glVertex3f( 0.35f,  0.10f, 0.001f);
+        glVertex3f(-0.35f,  0.10f, 0.001f);
     glEnd();
 
-    glTranslatef(-0.25f, -0.05f, 0.01f);
-    setColor(0.0f, 1.0f, 0.2f);
-    glScalef(0.0012f, 0.0012f, 0.001f);
-    glLineWidth(2.5f);
-    char timeStr[] = "10:30";
-    for (int i = 0; timeStr[i] != '\0'; i++) {
-        glutStrokeCharacter(GLUT_STROKE_ROMAN, timeStr[i]);
-    }
-    glLineWidth(1.0f);
+    // ===== Time Text =====
+    glPushMatrix();
+
+        // 👉 Center text properly
+        glTranslatef(-0.12f, -0.03f, 0.002f);
+
+        setColor(0.0f, 1.0f, 0.2f);
+        glLineWidth(2.5f);
+        glScalef(0.0012f, 0.0012f, 0.001f);
+
+        char timeStr[] = "10:30";
+        for (int i = 0; timeStr[i] != '\0'; i++) {
+            glutStrokeCharacter(GLUT_STROKE_ROMAN, timeStr[i]);
+        }
+
+        glLineWidth(1.0f);
+
+    glPopMatrix();
+
     glPopMatrix();
 }
 
-// ===== Picture Frame =====
+// ===== Picture Frame on back wall =====
 void drawPicture() {
     setColor(0.45f, 0.28f, 0.10f);
     drawQuad(3.5f,2.2f,-5.99f,  5.2f,2.2f,-5.99f,  5.2f,3.8f,-5.99f,  3.5f,3.8f,-5.99f);
@@ -1038,6 +1019,135 @@ void drawPicture() {
     drawQuad(3.65f,3.05f,-5.98f, 5.05f,3.05f,-5.98f, 5.05f,3.65f,-5.98f, 3.65f,3.65f,-5.98f);
     setColor(1.0f, 0.90f, 0.20f);
     glPushMatrix(); glTranslatef(4.35f, 3.05f, -5.97f); glutSolidSphere(0.18f, 10, 10); glPopMatrix();
+}
+
+// ===== Decorative Photo Frame above Sofa (right wall, x=6) =====
+void drawSofaPhotoFrame() {
+    // ── Outer walnut frame ──
+    setColor(0.28f, 0.16f, 0.06f);
+    drawQuad(5.99f, 2.50f, -1.05f,
+             5.99f, 2.50f,  1.05f,
+             5.99f, 4.20f,  1.05f,
+             5.99f, 4.20f, -1.05f);
+
+    // Outer frame border — four strips for a thick-frame look
+    // Top border strip (lighter wood)
+    setColor(0.42f, 0.26f, 0.10f);
+    drawQuad(5.988f, 4.05f, -1.05f,
+             5.988f, 4.05f,  1.05f,
+             5.988f, 4.20f,  1.05f,
+             5.988f, 4.20f, -1.05f);
+    // Bottom border strip
+    drawQuad(5.988f, 2.50f, -1.05f,
+             5.988f, 2.50f,  1.05f,
+             5.988f, 2.65f,  1.05f,
+             5.988f, 2.65f, -1.05f);
+    // Left border strip (in wall z coords, left = more negative z)
+    drawQuad(5.988f, 2.50f, -1.05f,
+             5.988f, 4.20f, -1.05f,
+             5.988f, 4.20f, -0.90f,
+             5.988f, 2.50f, -0.90f);
+    // Right border strip
+    drawQuad(5.988f, 2.50f,  0.90f,
+             5.988f, 4.20f,  0.90f,
+             5.988f, 4.20f,  1.05f,
+             5.988f, 2.50f,  1.05f);
+
+    // ── Inner mat (warm cream) ──
+    setColor(0.96f, 0.93f, 0.86f);
+    drawQuad(5.982f, 2.65f, -0.90f,
+             5.982f, 2.65f,  0.90f,
+             5.982f, 4.05f,  0.90f,
+             5.982f, 4.05f, -0.90f);
+
+    // ── Photo content: warm sunset landscape ──
+    // Sky top half (deep blue-violet dusk)
+    setColor(0.28f, 0.38f, 0.72f);
+    drawQuad(5.975f, 3.40f, -0.80f,
+             5.975f, 3.40f,  0.80f,
+             5.975f, 3.95f,  0.80f,
+             5.975f, 3.95f, -0.80f);
+
+    // Sky lower half (golden-orange horizon glow)
+    setColor(0.95f, 0.62f, 0.22f);
+    drawQuad(5.975f, 2.85f, -0.80f,
+             5.975f, 2.85f,  0.80f,
+             5.975f, 3.40f,  0.80f,
+             5.975f, 3.40f, -0.80f);
+
+    // Sun disc — glowing gold sphere
+    setColor(1.0f, 0.92f, 0.30f);
+    glPushMatrix();
+    glTranslatef(5.962f, 3.42f, 0.12f);
+    glutSolidSphere(0.18f, 14, 14);
+    glPopMatrix();
+
+    // Sun inner highlight (brighter core)
+    setColor(1.0f, 1.0f, 0.80f);
+    glPushMatrix();
+    glTranslatef(5.960f, 3.42f, 0.12f);
+    glutSolidSphere(0.09f, 10, 10);
+    glPopMatrix();
+
+    // Rolling hills — far left (dark green silhouette)
+    setColor(0.14f, 0.36f, 0.16f);
+    drawQuad(5.970f, 2.85f, -0.80f,
+             5.970f, 2.85f, -0.22f,
+             5.970f, 3.18f, -0.22f,
+             5.970f, 3.18f, -0.80f);
+
+    // Rolling hills — center (mid green)
+    setColor(0.18f, 0.48f, 0.20f);
+    drawQuad(5.970f, 2.85f, -0.30f,
+             5.970f, 2.85f,  0.35f,
+             5.970f, 3.26f,  0.35f,
+             5.970f, 3.26f, -0.30f);
+
+    // Rolling hills — far right (dark silhouette)
+    setColor(0.12f, 0.30f, 0.14f);
+    drawQuad(5.970f, 2.85f,  0.28f,
+             5.970f, 2.85f,  0.80f,
+             5.970f, 3.12f,  0.80f,
+             5.970f, 3.12f,  0.28f);
+
+    // Reflective water strip at base
+    setColor(0.55f, 0.72f, 0.92f);
+    drawQuad(5.972f, 2.85f, -0.80f,
+             5.972f, 2.85f,  0.80f,
+             5.972f, 3.00f,  0.80f,
+             5.972f, 3.00f, -0.80f);
+
+    // Water shimmer lines
+    glDisable(GL_LIGHTING);
+    setColor(1.0f, 0.98f, 0.72f);
+    glLineWidth(1.2f);
+    glBegin(GL_LINES);
+        glVertex3f(5.968f, 2.91f, -0.30f); glVertex3f(5.968f, 2.91f,  0.28f);
+        glVertex3f(5.968f, 2.95f, -0.50f); glVertex3f(5.968f, 2.95f,  0.50f);
+        glVertex3f(5.968f, 2.88f, -0.15f); glVertex3f(5.968f, 2.88f,  0.15f);
+    glEnd();
+    glLineWidth(1.0f);
+    glEnable(GL_LIGHTING);
+
+    // ── Thin gold inset line (inner frame accent) ──
+    setColor(0.82f, 0.65f, 0.12f);
+    // Top inset
+    drawQuad(5.985f, 4.02f, -0.92f,
+             5.985f, 4.02f,  0.92f,
+             5.985f, 4.05f,  0.92f,
+             5.985f, 4.05f, -0.92f);
+    // Bottom inset
+    drawQuad(5.985f, 2.65f, -0.92f,
+             5.985f, 2.65f,  0.92f,
+             5.985f, 2.68f,  0.92f,
+             5.985f, 2.68f, -0.92f);
+
+    // ── Small hanging wire / nail at top ──
+    setColor(0.55f, 0.55f, 0.58f);
+    glPushMatrix();
+    glTranslatef(5.993f, 4.22f, 0.0f);
+    glutSolidSphere(0.028f, 6, 6);
+    glPopMatrix();
 }
 
 // ===== Lighting Setup =====
@@ -1085,11 +1195,11 @@ void display() {
     setupLighting();
 
     drawRoom();
-    drawSingleWindowWithCurtain();  // Single window + curtain
-    drawDoor();                     // Door + stopper + switch inside
+    drawSingleWindowWithCurtain();
+    drawDoor();
     drawBed();
-    drawTable();                    // Smart table
-    drawChair();                    // Smart ergonomic chair
+    drawTable();
+    drawChair();
     drawBookshelf();
     drawBookRack();
     drawCarpet();
@@ -1097,12 +1207,13 @@ void display() {
     drawCeilingLight();
     drawFan();
     drawAC();
-    drawSofa();                     // Sofa with person sitting
-    drawTTable();                   // T-table / coffee table
-    drawCornerFlowerPot();          // Big floor plant in corner
-    drawDressingTable();            // Dressing table with mirror
+    drawSofa();
+    drawTTable();
+    drawCornerFlowerPot();
+    drawDressingTable();
     drawDigitalClock();
     drawPicture();
+    drawSofaPhotoFrame();   // NEW: decorative photo frame above sofa
 
     // HUD overlay
     glDisable(GL_LIGHTING);
@@ -1147,7 +1258,6 @@ void idle() {
         acFlow += 0.008f;
         if(acFlow > 1.0f) acFlow -= 1.0f;
     }
-    // Curtain gentle wave
     curtainWave += 0.015f;
     if(curtainWave > 6.2832f) curtainWave -= 6.2832f;
 
@@ -1203,7 +1313,7 @@ int main(int argc, char** argv) {
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
     glutInitWindowSize(1000, 700);
     glutInitWindowPosition(100, 50);
-    glutCreateWindow("3D Room Interior - Full | OpenGL/GLUT");
+    glutCreateWindow("Room Interior");
 
     glEnable(GL_DEPTH_TEST);
 
