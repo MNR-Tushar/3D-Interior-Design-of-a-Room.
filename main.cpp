@@ -1314,7 +1314,7 @@ int main(int argc, char** argv) {
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
     glutInitWindowSize(1000, 700);
     glutInitWindowPosition(100, 50);
-    glutCreateWindow("Room Interior");
+    glutCreateWindow("Interior Design of a Room");
 
     glEnable(GL_DEPTH_TEST);
 
