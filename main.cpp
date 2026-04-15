@@ -156,8 +156,8 @@ void drawSingleWindowWithCurtain() {
     // Curtain rod
     setColor(0.65f, 0.52f, 0.35f);
     glPushMatrix();
-    glTranslatef(ox - 0.4f, 1.20f-drop, -5.90f);
-    drawCylinder(0.025f, 3.3f, 8);
+    glTranslatef(ox - 0.4f, 2.30f-drop, -5.90f);
+    drawCylinder(0.025f, 2.10f, 8);
     glPopMatrix();
 
     // End caps
@@ -735,7 +735,7 @@ void drawAC() {
     glPopMatrix();
 }
 
-// ===== SOFA with PERSON SITTING =====
+// ===== SOFA =====
 void drawSofa() {
     glPushMatrix();
     glTranslatef(5.2f, 0.0f, 0.0f);
@@ -995,12 +995,12 @@ void drawDigitalClock() {
 
         setColor(0.0f, 1.0f, 0.2f);
         glLineWidth(2.5f);
+        glDisable(GL_LIGHTING);
         glScalef(0.0012f, 0.0012f, 0.001f);
-
         char timeStr[] = "10:30";
-        for (int i = 0; timeStr[i] != '\0'; i++) {
+        for (int i = 0; timeStr[i] != '\0'; i++)
             glutStrokeCharacter(GLUT_STROKE_ROMAN, timeStr[i]);
-        }
+        glEnable(GL_LIGHTING);
 
         glLineWidth(1.0f);
 
@@ -1213,11 +1213,12 @@ void display() {
     drawDressingTable();
     drawDigitalClock();
     drawPicture();
-    drawSofaPhotoFrame();   // NEW: decorative photo frame above sofa
+    drawSofaPhotoFrame();
 
     // HUD overlay
     glDisable(GL_LIGHTING);
     glColor3f(1,1,1);
+    glDisable(GL_DEPTH_TEST);
     glMatrixMode(GL_PROJECTION);
     glPushMatrix();
     glLoadIdentity();
@@ -1244,7 +1245,7 @@ void display() {
     glMatrixMode(GL_MODELVIEW);
     glPopMatrix();
     glEnable(GL_LIGHTING);
-
+    glEnable(GL_DEPTH_TEST);
     glutSwapBuffers();
 }
 
