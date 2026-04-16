@@ -4,8 +4,8 @@
 #include <cstdlib>
 
 // ===== Camera =====
-float camX = 0.0f, camY = 2.0f, camZ = 8.0f;
-float camAngleX = -10.0f, camAngleY = 0.0f;
+float camX = -1.0f, camY = 2.0f, camZ = 5.9f;
+float camAngleX = -0.0f, camAngleY = 13.0f;
 
 // ===== Light animation =====
 bool lightOn = true;
@@ -108,9 +108,8 @@ void drawRoom() {
 
     // Front wall (with opening)
     setColor(0.78f, 0.82f, 0.88f);
-    drawQuad(-6,0,6,  -2,0,6,  -2,5,6,  -6,5,6);
-    drawQuad(2,0,6,   6,0,6,   6,5,6,   2,5,6);
-    drawQuad(-6,3,6,  6,3,6,   6,5,6,  -6,5,6);
+    drawQuad(-6,0,6,  6,0,6,  6,5,6,  -6,5,6);
+
 }
 
 /// ===== SINGLE Window on back wall (LOWERED) with curtains =====
@@ -299,7 +298,7 @@ void drawBed() {
 // ===== SMART Study Table (modern look) =====
 void drawTable() {
     glPushMatrix();
-    glTranslatef(3.5f, 0, -3.5f);
+    glTranslatef(3.5f, 0, -5.2f);
 
     // Modern thick top with rounded feel (white/light gray)
     setColor(0.92f, 0.92f, 0.95f);
@@ -382,10 +381,10 @@ void drawTable() {
     glPopMatrix();
 }
 
-// ===== SMART Chair (ergonomic) =====
+// ===== SMART Chair =====
 void drawChair() {
     glPushMatrix();
-    glTranslatef(3.5f, 0, -2.0f);
+    glTranslatef(3.5f, 0, -3.8f);
     glRotatef(180.0f, 0, 1, 0);
 
     // Seat — ergonomic contoured (dark gray)
@@ -549,7 +548,7 @@ void drawBookshelf() {
 // ===== Book Rack =====
 void drawBookRack() {
     glPushMatrix();
-    glTranslatef(5.30f, 0.0f, -3.50f);
+    glTranslatef(5.30f, 0.0f, -5.50f);
 
     setColor(0.38f, 0.24f, 0.09f);
     glPushMatrix(); glTranslatef(-0.28f, 1.70f, 0); glScalef(0.06f, 3.40f, 0.50f); glutSolidCube(1.0); glPopMatrix();
@@ -656,30 +655,59 @@ void drawFan() {
     glPushMatrix();
     glTranslatef(0.0f, 4.85f, 0.0f);
 
+    // Rod
     setColor(0.55f, 0.55f, 0.58f);
-    glPushMatrix(); glTranslatef(0, -0.05f, 0); drawCylinder(0.04f, 0.35f, 12); glPopMatrix();
+    glPushMatrix();
+    glTranslatef(0, -0.05f, 0);
+    drawCylinder(0.04f, 0.35f, 12);
+    glPopMatrix();
 
+    // Motor body
     setColor(0.60f, 0.60f, 0.62f);
-    glPushMatrix(); glTranslatef(0, -0.45f, 0); drawCylinder(0.18f, 0.22f, 20); glPopMatrix();
+    glPushMatrix();
+    glTranslatef(0, -0.45f, 0);
+    drawCylinder(0.18f, 0.22f, 20);
+    glPopMatrix();
 
-    setColor(0.95f, 0.92f, 0.75f);
-    glPushMatrix(); glTranslatef(0, -0.58f, 0); glutSolidSphere(0.12f, 12, 12); glPopMatrix();
-
+    // Fan blades
     glPushMatrix();
     glTranslatef(0, -0.36f, 0);
     glRotatef(fanAngle, 0, 1, 0);
+
     int numBlades = 4;
     for(int b = 0; b < numBlades; b++) {
         glPushMatrix();
         glRotatef(b * 90.0f, 0, 1, 0);
+
+        // Blade arm
         setColor(0.50f, 0.32f, 0.10f);
-        glPushMatrix(); glTranslatef(0.18f, 0, 0); glRotatef(90, 0, 1, 0); drawCylinder(0.03f, 0.25f, 8); glPopMatrix();
+        glPushMatrix();
+        glTranslatef(0.18f, 0, 0);
+        glRotatef(90, 0, 1, 0);
+        drawCylinder(0.03f, 0.25f, 8);
+        glPopMatrix();
+
+        // Blade top
         setColor(0.65f, 0.42f, 0.18f);
-        glPushMatrix(); glTranslatef(0.72f, 0.01f, 0); glRotatef(-8, 0, 0, 1); glScalef(0.90f, 0.04f, 0.28f); glutSolidCube(1.0); glPopMatrix();
+        glPushMatrix();
+        glTranslatef(0.72f, 0.01f, 0);
+        glRotatef(-8, 0, 0, 1);
+        glScalef(0.90f, 0.04f, 0.28f);
+        glutSolidCube(1.0);
+        glPopMatrix();
+
+        // Blade bottom
         setColor(0.52f, 0.33f, 0.12f);
-        glPushMatrix(); glTranslatef(0.72f, -0.01f, 0); glRotatef(-8, 0, 0, 1); glScalef(0.90f, 0.04f, 0.28f); glutSolidCube(1.0); glPopMatrix();
+        glPushMatrix();
+        glTranslatef(0.72f, -0.01f, 0);
+        glRotatef(-8, 0, 0, 1);
+        glScalef(0.90f, 0.04f, 0.28f);
+        glutSolidCube(1.0);
+        glPopMatrix();
+
         glPopMatrix();
     }
+
     glPopMatrix();
     glPopMatrix();
 }
@@ -886,7 +914,7 @@ void drawCornerFlowerPot() {
 void drawDressingTable() {
     glPushMatrix();
     glTranslatef(5.5f, 0.0f, 4.0f);
-    glRotatef(260.0f, 0, 1, 0);
+    glRotatef(270.0f, 0, 1, 0);
 
     setColor(0.58f, 0.38f, 0.16f);
     glPushMatrix(); glTranslatef(0, 0.70f, 0); glScalef(1.80f, 1.40f, 0.52f); glutSolidCube(1.0); glPopMatrix();
@@ -964,7 +992,7 @@ void drawDigitalClock() {
     glPushMatrix();
 
     // 👉 Clock wall position (change only here)
-    glTranslatef(4.3f, 4.0f, -5.9f);
+    glTranslatef(3.3f, 4.0f, -5.9f);
 
     // 👉 Face direction fix (wall facing adjustment)
     glRotatef(0.0f, 0.0f, 1.0f, 0.0f);
@@ -1012,13 +1040,19 @@ void drawDigitalClock() {
 // ===== Picture Frame on back wall =====
 void drawPicture() {
     setColor(0.45f, 0.28f, 0.10f);
-    drawQuad(3.5f,2.2f,-5.99f,  5.2f,2.2f,-5.99f,  5.2f,3.8f,-5.99f,  3.5f,3.8f,-5.99f);
+    drawQuad(2.5f,2.2f,-5.99f,  4.2f,2.2f,-5.99f,  4.2f,3.8f,-5.99f,  2.5f,3.8f,-5.99f);
+
     setColor(0.95f, 0.55f, 0.10f);
-    drawQuad(3.65f,2.35f,-5.98f, 5.05f,2.35f,-5.98f, 5.05f,3.05f,-5.98f, 3.65f,3.05f,-5.98f);
+    drawQuad(2.65f,2.35f,-5.98f, 4.05f,2.35f,-5.98f, 4.05f,3.05f,-5.98f, 2.65f,3.05f,-5.98f);
+
     setColor(0.35f, 0.60f, 0.90f);
-    drawQuad(3.65f,3.05f,-5.98f, 5.05f,3.05f,-5.98f, 5.05f,3.65f,-5.98f, 3.65f,3.65f,-5.98f);
+    drawQuad(2.65f,3.05f,-5.98f, 4.05f,3.05f,-5.98f, 4.05f,3.65f,-5.98f, 2.65f,3.65f,-5.98f);
+
     setColor(1.0f, 0.90f, 0.20f);
-    glPushMatrix(); glTranslatef(4.35f, 3.05f, -5.97f); glutSolidSphere(0.18f, 10, 10); glPopMatrix();
+    glPushMatrix();
+    glTranslatef(3.35f, 3.05f, -5.97f);
+    glutSolidSphere(0.18f, 10, 10);
+    glPopMatrix();
 }
 
 // ===== Decorative Photo Frame above Sofa (right wall, x=6) =====
