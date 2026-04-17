@@ -41,6 +41,76 @@ void drawQuad(float x1,float y1,float z1,
     glEnd();
 }
 
+// ======================================================
+// Plot Point for Floor Grid
+// ======================================================
+void plotGridPoint(int x, int z)
+{
+    glBegin(GL_POINTS);
+        glVertex3f(x / 100.0f, 0.001f, z / 100.0f);
+    glEnd();
+}
+
+// ======================================================
+// DDA Line Algorithm
+// ======================================================
+void DDA(int x1, int y1, int x2, int y2)
+{
+    int dx = x2 - x1;
+    int dy = y2 - y1;
+
+    int steps = abs(dx) > abs(dy) ? abs(dx) : abs(dy);
+
+    float xInc = dx / (float)steps;
+    float yInc = dy / (float)steps;
+
+    float x = x1;
+    float y = y1;
+
+    for(int i = 0; i <= steps; i++)
+    {
+        plotGridPoint(round(x), round(y));
+        x += xInc;
+        y += yInc;
+    }
+}
+
+// ======================================================
+// Bresenham Line Algorithm
+// ======================================================
+void Bresenham(int x1, int y1, int x2, int y2)
+{
+    int dx = abs(x2 - x1);
+    int dy = abs(y2 - y1);
+
+    int sx = (x1 < x2) ? 1 : -1;
+    int sy = (y1 < y2) ? 1 : -1;
+
+    int err = dx - dy;
+
+    while(true)
+    {
+        plotGridPoint(x1, y1);
+
+        if(x1 == x2 && y1 == y2)
+            break;
+
+        int e2 = 2 * err;
+
+        if(e2 > -dy)
+        {
+            err -= dy;
+            x1 += sx;
+        }
+
+        if(e2 < dx)
+        {
+            err += dx;
+            y1 += sy;
+        }
+    }
+}
+
 // ===== Custom Cylinder =====
 void drawCylinder(float radius, float height, int slices) {
     float step = 2.0f * 3.14159f / slices;
@@ -85,6 +155,32 @@ void drawRoom() {
     setColor(0.88f, 0.88f, 0.86f);
     drawQuad(-6,-0.01f,-6,  6,-0.01f,-6,  6,-0.01f,6,  -6,-0.01f,6);
 
+
+     glPointSize(1.0f);
+
+    int scale = 100; // Resolution scale factor
+
+    // ----- Vertical lines using DDA -----
+    setColor(0.20f, 0.20f, 0.20f);
+    for(int i = -6; i <= 6; i += 2)
+    {
+        // x fixed, z changes (scaled up by 100)
+        DDA(i * scale, -6 * scale, i * scale, 6 * scale);
+    }
+
+    // ----- Horizontal lines using Bresenham -----
+    setColor(0.20f, 0.20f, 0.20f);
+    for(int i = -6; i <= 6; i += 2)
+    {
+        // z fixed, x changes (scaled up by 100)
+        Bresenham(-6 * scale, i * scale, 6 * scale, i * scale);
+    }
+
+
+
+
+
+    /*
     setColor(0.20f, 0.20f, 0.20f);
     glLineWidth(1.2f);
     glBegin(GL_LINES);
@@ -93,6 +189,8 @@ void drawRoom() {
         glVertex3f(-6,0,i); glVertex3f(6,0,i);
     }
     glEnd();
+
+    */
 
     // Ceiling
     setColor(0.95f, 0.93f, 0.88f);
